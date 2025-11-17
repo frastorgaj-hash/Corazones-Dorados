@@ -52,8 +52,6 @@ export class AppComponent {
       case 'normal': return 'Normal';
       case 'low': return 'Baja';
       case 'none': return 'Nula';
-      default:
-        return activity.charAt(0).toUpperCase() + activity.slice(1);
     }
   });
   

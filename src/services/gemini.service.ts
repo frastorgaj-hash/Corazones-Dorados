@@ -7,19 +7,20 @@ import { Patient } from '../patient.model';
 })
 export class GeminiService {
   private genAI: GoogleGenAI;
+  private apiKey: string;
 
   constructor() {
     // This is a placeholder for the API key.
     // In a real Applet environment, process.env.API_KEY would be available.
-    const apiKey = (window as any).process?.env?.API_KEY ?? 'YOUR_API_KEY_HERE';
-    if (apiKey === 'YOUR_API_KEY_HERE') {
+    this.apiKey = (window as any).process?.env?.API_KEY ?? 'YOUR_API_KEY_HERE';
+    if (this.apiKey === 'YOUR_API_KEY_HERE') {
       console.warn('Gemini API key not found. Please set the API_KEY environment variable.');
     }
-    this.genAI = new GoogleGenAI({ apiKey });
+    this.genAI = new GoogleGenAI({ apiKey: this.apiKey });
   }
 
   async generatePatientSummary(patientData: Patient): Promise<string> {
-    if (this.genAI.apiKey === 'YOUR_API_KEY_HERE') {
+    if (this.apiKey === 'YOUR_API_KEY_HERE') {
       return Promise.resolve("El resumen de la IA no está disponible. La clave de API no está configurada.");
     }
     
