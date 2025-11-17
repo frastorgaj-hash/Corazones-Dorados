@@ -29,13 +29,15 @@ export class GeminiService {
       y fácil de entender de su estado actual y actividad reciente.
       El resumen debe tener un tono amable y tranquilizador.
       Si se detecta una caída, comienza el resumen destacándola como una alerta urgente.
-      De lo contrario, proporciona una actualización general del estado.
+      De lo contrario, proporciona una actualización general del estado. Menciona su estado nutricional.
       Mantén el resumen en 2-3 frases.
 
       Datos del Paciente:
+      - Nombre: ${patientData.name}
       - Habitación Actual: ${patientData.currentRoom}
       - En Movimiento: ${patientData.isMoving}
       - Nivel de Actividad Actual: ${patientData.activityLevel}
+      - Última Comida: ${patientData.lastMeal.type} (${patientData.lastMeal.status})
       - Caída Detectada: ${patientData.fallDetected}
       ${patientData.fallDetected ? `- Hora de la Caída: ${patientData.fallTimestamp}` : ''}
       - Pasos Diarios: ${patientData.dailyStepCount}

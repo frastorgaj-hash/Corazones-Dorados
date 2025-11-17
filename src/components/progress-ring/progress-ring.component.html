@@ -1,0 +1,31 @@
+<div class="relative flex items-center justify-center">
+  <svg
+    class="transform -rotate-90"
+    [attr.height]="radius() * 2"
+    [attr.width]="radius() * 2"
+  >
+    <circle
+      class="stroke-stone-200"
+      stroke="currentColor"
+      fill="transparent"
+      [attr.stroke-width]="strokeWidth()"
+      [attr.r]="normalizedRadius()"
+      [attr.cx]="radius()"
+      [attr.cy]="radius()"
+    />
+    <circle
+      [class]="color()"
+      stroke="currentColor"
+      fill="transparent"
+      [attr.stroke-width]="strokeWidth()"
+      stroke-linecap="round"
+      [attr.r]="normalizedRadius()"
+      [attr.cx]="radius()"
+      [attr.cy]="radius()"
+      [style.stroke-dasharray]="circumference()"
+      [style.stroke-dashoffset]="strokeDashoffset()"
+      style="transition: stroke-dashoffset 0.35s;"
+    />
+  </svg>
+  <span class="absolute text-2xl font-bold text-amber-600">{{ progress().toFixed(0) }}%</span>
+</div>

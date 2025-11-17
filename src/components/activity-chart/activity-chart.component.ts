@@ -13,10 +13,10 @@ export class ActivityChartComponent {
   protected barStyles = computed(() => {
     return this.history().map(level => {
       switch(level) {
-        case 'normal': return { height: '80%', color: 'bg-green-400' };
-        case 'low': return { height: '40%', color: 'bg-yellow-400' };
-        case 'none': return { height: '10%', color: 'bg-slate-300' };
-        default: return { height: '10%', color: 'bg-slate-300' };
+        case 'normal': return { height: '80%', color: 'bg-teal-400' };
+        case 'low': return { height: '40%', color: 'bg-amber-400' };
+        case 'none': return { height: '10%', color: 'bg-stone-300' };
+        default: return { height: '10%', color: 'bg-stone-300' };
       }
     });
   });
