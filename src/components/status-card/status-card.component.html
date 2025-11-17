@@ -1,0 +1,14 @@
+<div class="bg-white p-4 rounded-xl shadow-sm flex items-center space-x-4 h-full transition-transform duration-200 hover:scale-105 hover:shadow-lg cursor-pointer">
+  <div class="rounded-full p-3" [class]="bgColorClass()">
+    <svg [class]="'w-6 h-6 ' + colorClass()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="iconPath()" />
+    </svg>
+  </div>
+  <div>
+    <p class="text-gray-500 text-sm font-medium">{{ label() }}</p>
+    @if(subtitle()) {
+      <p class="text-xs text-gray-400">{{ subtitle() }}</p>
+    }
+    <p class="text-2xl font-bold text-gray-800 mt-1">{{ value() }}</p>
+  </div>
+</div>
