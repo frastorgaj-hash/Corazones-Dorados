@@ -5,22 +5,22 @@
         <button 
           (click)="selectPatient(patient.patientId)"
           class="w-full flex items-center p-3 rounded-lg text-left transition-colors duration-200"
-          [class.bg-amber-100]="patient.patientId === selectedPatientId()"
-          [class.hover:bg-stone-100]="patient.patientId !== selectedPatientId()"
+          [class.bg-sky-100]="patient.patientId === selectedPatientId()"
+          [class.hover:bg-slate-100]="patient.patientId !== selectedPatientId()"
         >
           <img [src]="patient.avatarUrl" alt="Avatar de {{ patient.name }}" class="w-10 h-10 rounded-full mr-4">
           <div class="flex-1">
             <p 
               class="font-semibold text-sm"
-              [class.text-amber-800]="patient.patientId === selectedPatientId()"
-              [class.text-stone-700]="patient.patientId !== selectedPatientId()"
+              [class.text-sky-800]="patient.patientId === selectedPatientId()"
+              [class.text-slate-700]="patient.patientId !== selectedPatientId()"
             >
               {{ patient.name }}
             </p>
             <p 
               class="text-xs"
-              [class.text-amber-600]="patient.patientId === selectedPatientId()"
-              [class.text-stone-500]="patient.patientId !== selectedPatientId()"
+              [class.text-sky-600]="patient.patientId === selectedPatientId()"
+              [class.text-slate-500]="patient.patientId !== selectedPatientId()"
             >
               {{ patient.age }} años
             </p>

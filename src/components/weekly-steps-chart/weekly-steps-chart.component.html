@@ -1,6 +1,6 @@
 <div class="bg-white p-6 rounded-xl shadow-sm h-full flex flex-col">
-  <h3 class="text-lg font-semibold text-stone-800 mb-1">Pasos de la Semana</h3>
-  <p class="text-sm text-stone-500 mb-4">Tendencia de actividad de los últimos 7 días.</p>
+  <h3 class="text-lg font-semibold text-slate-800 mb-1">Pasos de la Semana</h3>
+  <p class="text-sm text-slate-500 mb-4">Tendencia de actividad de los últimos 7 días.</p>
   
   <div class="flex-grow w-full h-48 flex items-end justify-between space-x-2 pt-4">
     @for (bar of barStyles(); track bar.day) {
@@ -9,11 +9,11 @@
           class="w-3/4 h-full flex items-end"
           [title]="bar.day + ': ' + bar.steps + ' pasos'">
           <div
-            class="w-full bg-amber-400 rounded-t-md hover:bg-amber-500 transition-colors duration-200"
+            class="w-full bg-sky-400 rounded-t-md hover:bg-sky-500 transition-colors duration-200"
             [style.height]="bar.height">
           </div>
         </div>
-        <span class="text-xs font-medium text-stone-500 mt-2">{{ bar.day }}</span>
+        <span class="text-xs font-medium text-slate-500 mt-2">{{ bar.day }}</span>
       </div>
     }
   </div>

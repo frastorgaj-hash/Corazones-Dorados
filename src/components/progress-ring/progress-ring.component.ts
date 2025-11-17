@@ -10,7 +10,7 @@ export class ProgressRingComponent {
   progress = input.required<number>(); // 0-100
   strokeWidth = input<number>(12);
   radius = input<number>(80);
-  color = input<string>('stroke-amber-500');
+  color = input<string>('stroke-sky-500');
 
   protected normalizedRadius = computed(() => this.radius() - this.strokeWidth() * 2);
   protected circumference = computed(() => this.normalizedRadius() * 2 * Math.PI);

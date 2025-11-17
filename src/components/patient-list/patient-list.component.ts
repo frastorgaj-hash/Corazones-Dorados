@@ -23,11 +23,11 @@ export class PatientListComponent {
       case 'normal':
         return 'bg-teal-400';
       case 'low':
-        return 'bg-amber-400';
+        return 'bg-yellow-400';
       case 'none':
-        return 'bg-stone-400';
+        return 'bg-slate-400';
       default:
-        return 'bg-stone-400';
+        return 'bg-slate-400';
     }
   }
 }

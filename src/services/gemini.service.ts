@@ -27,8 +27,8 @@ export class GeminiService {
     const prompt = `
       Analiza los siguientes datos de un paciente de edad avanzada y proporciona un resumen conciso 
       y fácil de entender de su estado actual y actividad reciente.
-      El resumen debe tener un tono amable y tranquilizador.
-      Si se detecta una caída, comienza el resumen destacándola como una alerta urgente.
+      El resumen debe tener un tono amable, conversacional y tranquilizador, puedes usar emojis para hacerlo más cercano.
+      Si se detecta una caída, comienza el resumen destacándola como una alerta urgente. ‼️
       De lo contrario, proporciona una actualización general del estado. Menciona su estado nutricional.
       Mantén el resumen en 2-3 frases.
 

@@ -1,12 +1,12 @@
 <div class="flex h-screen overflow-hidden">
   <!-- Sidebar -->
-  <aside class="w-80 bg-white border-r border-stone-200 flex flex-col">
-    <div class="px-6 py-4 border-b border-stone-200">
-      <h1 class="text-2xl font-bold text-amber-600">Guardián<span class="font-light text-stone-500">DeAbuelos</span></h1>
+  <aside class="w-80 bg-white border-r border-slate-200 flex flex-col">
+    <div class="px-6 py-4 border-b border-slate-200">
+      <h1 class="text-2xl font-bold text-sky-600">Guardián<span class="font-light text-slate-500">DeAbuelos</span></h1>
     </div>
     <div class="flex flex-col p-4">
-        <label for="home-select" class="text-sm font-medium text-stone-600 mb-2">Seleccionar Residencia:</label>
-        <select id="home-select" [value]="selectedHomeId()" (change)="onSelectHome($event)" class="w-full p-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition">
+        <label for="home-select" class="text-sm font-medium text-slate-600 mb-2">Seleccionar Residencia:</label>
+        <select id="home-select" [value]="selectedHomeId()" (change)="onSelectHome($event)" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
             @for(home of homes(); track home.id) {
                 <option [value]="home.id">{{ home.name }}</option>
             }
@@ -20,25 +20,25 @@
   </aside>
 
   <!-- Main Content -->
-  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+  <main class="flex-1 flex overflow-y-auto p-4 sm:p-6 lg:p-8">
     @if (selectedPatient(); as patient) {
-      <div class="max-w-7xl mx-auto">
+      <div class="w-full max-w-7xl m-auto">
         <!-- Header -->
-        <header class="mb-8 p-4 bg-gradient-to-tr from-amber-500 to-orange-400 rounded-2xl shadow-lg text-white">
+        <header class="mb-8 p-4 bg-gradient-to-tr from-sky-500 to-sky-400 rounded-2xl shadow-lg text-white">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <!-- Patient Info -->
             <div class="flex items-center gap-4">
               <img class="h-20 w-20 rounded-full border-4 border-white/50 object-cover shadow-md" [src]="patient.avatarUrl" alt="Foto de perfil del paciente">
               <div>
                 <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">{{ patient.name }}</h2>
-                <p class="text-orange-100 mt-1 text-lg">{{ patient.age }} años</p>
+                <p class="text-sky-100 mt-1 text-lg">{{ patient.age }} años</p>
               </div>
             </div>
             <!-- Live Status -->
             <div class="flex items-center gap-3 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
                 <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+                  <span class="absolute inline-flex h-full w-full rounded-full opacity-75" [class]="liveStatusClasses()"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3" [class]="liveStatusClasses()"></span>
                 </span>
                 <span class="font-semibold text-sm tracking-wide">En Vivo</span>
             </div>
@@ -69,8 +69,8 @@
           <div class="lg:col-span-1 flex flex-col gap-6">
             <div class="bg-white p-6 rounded-xl shadow-sm h-full">
               <div class="flex justify-between items-center mb-3">
-                <h3 class="text-lg font-semibold text-stone-800">Análisis de Bienestar por IA</h3>
-                <button (click)="generateSummary(patient)" [disabled]="isLoadingSummary()" class="text-amber-500 hover:text-amber-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors">
+                <h3 class="text-lg font-semibold text-slate-800">Análisis de Bienestar por IA</h3>
+                <button (click)="generateSummary(patient)" [disabled]="isLoadingSummary()" class="text-sky-500 hover:text-sky-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" [class.animate-spin]="isLoadingSummary()">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.664 0l3.181-3.183m-4.991-2.696L7.985 5.989m0 0v4.992m0-4.992h4.992" />
                     </svg>
@@ -78,21 +78,23 @@
               </div>
               @if (isLoadingSummary()) {
                 <div class="space-y-3 pt-2">
-                  <div class="h-3 bg-stone-200 rounded-full w-5/6 animate-pulse"></div>
-                  <div class="h-3 bg-stone-200 rounded-full w-full animate-pulse"></div>
-                  <div class="h-3 bg-stone-200 rounded-full w-3/4 animate-pulse"></div>
+                  <div class="h-3 bg-slate-200 rounded-full w-5/6 animate-pulse"></div>
+                  <div class="h-3 bg-slate-200 rounded-full w-full animate-pulse"></div>
+                  <div class="h-3 bg-slate-200 rounded-full w-3/4 animate-pulse"></div>
                 </div>
               } @else {
-                <p class="text-stone-600 leading-relaxed">{{ summary() }}</p>
+                <p class="text-stone-600 leading-relaxed min-h-[72px]">
+                  {{ summary() }}<span [class.blinking-cursor]="isTyping()">|</span>
+                </p>
               }
-              <p class="text-xs text-stone-400 mt-4 text-right italic">Potenciado por Gemini</p>
+              <p class="text-xs text-slate-400 mt-4 text-right italic">Potenciado por Gemini</p>
             </div>
 
             <div class="grid grid-cols-2 gap-6">
                 <app-status-card label="Nutrición" [subtitle]="'Estado: ' + patient.lastMeal.status" [value]="patient.lastMeal.type" [iconPath]="ICONS.nutrition" colorClass="text-green-500" bgColorClass="bg-green-100" />
-                <app-status-card label="Habitación Actual" subtitle="Ubicación" [value]="patient.currentRoom" [iconPath]="ICONS.location" colorClass="text-blue-500" bgColorClass="bg-blue-100" />
-                <app-status-card label="Movimiento" subtitle="Estado actual" [value]="movementStatus()" [iconPath]="ICONS.motion" colorClass="text-purple-500" bgColorClass="bg-purple-100" />
-                <app-status-card label="Actividad" subtitle="Intensidad" [value]="capitalizedActivity()" [iconPath]="ICONS.activity" colorClass="text-amber-500" bgColorClass="bg-amber-100"/>
+                <app-status-card label="Habitación" subtitle="Ubicación" [value]="patient.currentRoom" [iconPath]="ICONS.location" colorClass="text-sky-500" bgColorClass="bg-sky-100" />
+                <app-status-card label="Movimiento" subtitle="Estado" [value]="movementStatus()" [iconPath]="ICONS.motion" colorClass="text-purple-500" bgColorClass="bg-purple-100" />
+                <app-status-card label="Temperatura" subtitle="Ambiente" [value]="patient.currentRoomTemperature + '°C'" [iconPath]="ICONS.temperature" [colorClass]="temperatureColor()" [bgColorClass]="temperatureBgColor()"/>
             </div>
           </div>
           
@@ -100,29 +102,40 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-6 rounded-xl shadow-sm flex flex-col justify-between">
                     <div>
-                        <p class="text-stone-500 text-sm font-medium">Pasos Diarios</p>
-                        <p class="text-xs text-stone-400">Objetivo: {{ patient.dailyStepGoal }}</p>
-                        <p class="text-4xl font-bold text-stone-800 mt-2">{{ patient.dailyStepCount }}</p>
+                        <div class="flex justify-between items-start">
+                           <div>
+                                <p class="text-slate-500 text-sm font-medium">Pasos Diarios</p>
+                                <p class="text-xs text-slate-400">Objetivo: {{ patient.dailyStepGoal }}</p>
+                                <p class="text-4xl font-bold text-slate-800 mt-2">{{ patient.dailyStepCount }}</p>
+                           </div>
+                           @if(isStepGoalReached()) {
+                               <div class="flex-shrink-0 flex flex-col items-center gap-1 text-teal-600 bg-teal-100/80 rounded-lg px-3 py-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                                      <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM5.05 3.55a.75.75 0 00-1.06 1.06l1.06-1.06zM14.95 3.55a.75.75 0 011.06 1.06l-1.06-1.06zM2 10a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5A.75.75 0 012 10zM15.25 10a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zM5.05 16.45a.75.75 0 001.06-1.06l-1.06 1.06zM14.95 16.45a.75.75 0 01-1.06-1.06l1.06 1.06zM10 15.25a.75.75 0 01.75-.75h.01a.75.75 0 010 1.5h-.01a.75.75 0 01-.75-.75zM3.99 10.125a.75.75 0 01.75-.75h.01a.75.75 0 010 1.5h-.01a.75.75 0 01-.75-.75zM8.25 15a.75.75 0 01.75-.75h.01a.75.75 0 010 1.5h-.01a.75.75 0 01-.75-.75zM8.25 5a.75.75 0 01.75-.75h.01a.75.75 0 010 1.5h-.01a.75.75 0 01-.75-.75z"/>
+                                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-xs font-bold whitespace-nowrap">¡Objetivo!</span>
+                               </div>
+                           }
+                        </div>
                     </div>
                     <div class="mt-4 flex justify-center">
-                        <app-progress-ring [progress]="stepProgress()" color="stroke-amber-500" />
+                        <app-progress-ring [progress]="stepProgress()" [color]="stepRingColor()" />
                     </div>
                 </div>
                 <app-weekly-steps-chart [history]="patient.weeklyStepHistory" />
             </div>
-            <app-activity-chart [history]="patient.movementHistory" />
+            <app-floor-plan [currentRoom]="patient.currentRoom" [patientAvatarUrl]="patient.avatarUrl"/>
           </div>
         </div>
       </div>
     } @else {
-      <div class="flex items-center justify-center h-full">
-        <div class="text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <h3 class="mt-2 text-lg font-medium text-stone-800">Seleccione un paciente</h3>
-          <p class="mt-1 text-sm text-stone-500">Elija un paciente de la lista de la izquierda para ver su panel de bienestar.</p>
-        </div>
+      <div class="text-center m-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <h3 class="mt-2 text-lg font-medium text-slate-800">Seleccione un paciente</h3>
+        <p class="mt-1 text-sm text-slate-500">Elija un paciente de la lista de la izquierda para ver su panel de bienestar.</p>
       </div>
     }
   </main>

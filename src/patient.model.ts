@@ -22,6 +22,7 @@ export interface Patient {
   lastMeal: Meal;
   movementHistory: ActivityLevel[];
   weeklyStepHistory: { day: string; steps: number }[];
+  currentRoomTemperature: number;
 }
 
 export interface NursingHome {
